@@ -1,0 +1,4 @@
+{
+    "sonarQubeUri": "{Sonarqube URL}",
+    "projectKey": "{Sonarqube project key}"
+}
