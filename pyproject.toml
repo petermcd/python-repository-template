@@ -1,0 +1,6 @@
+[project]
+name = "My Super Project"
+version = "0.1.0"
+description = "This is my super project that does amazing things."
+requires-python = ">=3.13"
+dependencies = []
