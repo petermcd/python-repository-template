@@ -72,10 +72,13 @@ function setup_issue_templates {
 function set_python_version {
     header 'Python Version'
     read -rp 'What is the minimum targetted python version? ' python_min
+    python_version_no_dot="${python_min//.}"
     sed -i '' -e "s/{ PYTHON VERSION }/$python_min/g" '.github/workflows/uv.yml'
     sed -i '' -e "s/{ PYTHON VERSION }/$python_min/g" '.python-version'
     sed -i '' -e "s/{ PYTHON VERSION }/$python_min/g" 'pyproject.toml'
+    sed -i '' -e "s/{ PYTHON VERSION NO DOT }/$python_version_no_dot/g" 'pyproject.toml'
     sed -i '' -e "s/{ PYTHON VERSION }/$python_min/g" 'sonar-project.properties'
+
     printf 'Updating the Python version across the project.'
 }
 
