@@ -21,4 +21,4 @@ dev = [
 addopts = "--cov=tpc_plugin_validator --cov-report term-missing --cov-report xml:coverage.xml"
 
 [tool.isort]
-py_version=310
+py_version={ PYTHON VERSION NO DOT }
