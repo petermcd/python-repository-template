@@ -17,3 +17,9 @@ Things you should do:
 * Update the `README.md` file to describe your project.
 
 This template assumes that you will be using uv for project management and GitHub workflows.
+
+##
+
+The following are a few things that I plan to do to extend this template:
+
+* Update the bash script so that the SonarQube section is removed from uv.yml
