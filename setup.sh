@@ -69,6 +69,16 @@ function setup_issue_templates {
     fi
 }
 
+function set_python_version {
+    header 'Python Version'
+    read -rp 'What is the minimum targetted python version? ' python_min
+    sed -i '' -e "s/{ PYTHON VERSION }/$python_min/g" '.github/workflows/uv.yml'
+    sed -i '' -e "s/{ PYTHON VERSION }/$python_min/g" '.python-version'
+    sed -i '' -e "s/{ PYTHON VERSION }/$python_min/g" 'pyproject.toml'
+    sed -i '' -e "s/{ PYTHON VERSION }/$python_min/g" 'sonar-project.properties'
+    printf 'Updating the Python version across the project.'
+}
+
 function setup_licence {
     # Setup licence information
     header "LICENSE File."
@@ -102,11 +112,11 @@ function setup_sonar {
         printf 'Removing Sonar related files.'
         rm 'sonar-project.properties'
         rm -rf '.sonarlint'
-        rm '.github/workflows/sonarqube-analysis.yml'
     fi
 }
 
 setup_licence
+set_python_version
 funding_setup
 setup_issue_templates
 setup_sonar
