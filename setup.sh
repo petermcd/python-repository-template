@@ -71,8 +71,9 @@ function setup_issue_templates {
 
 function set_python_version {
     header 'Python Version'
-    read -rp 'What is the minimum targetted python version? ' python_min
+    read -rp 'What is the minimum targeted python version? ' python_min
     python_version_no_dot="${python_min//.}"
+    sed -i '' -e "s/{ PYTHON VERSION }/$python_min/g" '.github/workflows/publish.yml'
     sed -i '' -e "s/{ PYTHON VERSION }/$python_min/g" '.github/workflows/uv.yml'
     sed -i '' -e "s/{ PYTHON VERSION }/$python_min/g" '.python-version'
     sed -i '' -e "s/{ PYTHON VERSION }/$python_min/g" 'pyproject.toml'
