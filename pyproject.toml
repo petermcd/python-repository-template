@@ -20,5 +20,5 @@ dev = [
 [tool.pytest.ini_options]
 addopts = "--cov=tpc_plugin_validator --cov-report term-missing --cov-report xml:coverage.xml"
 
-[tool.isort]
-py_version={ PYTHON VERSION NO DOT }
+[tool.ruff]
+line-length = 120
