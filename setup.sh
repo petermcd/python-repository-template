@@ -28,7 +28,7 @@ function funding_setup {
         if [ "$github_funding_y_n" = 'n' ]; then
             read -rp 'Enter the GitHub username to use for funding: ' github_funding_username
         fi
-        sed -i '' -e "s/{ USERNAME }/$github_funding_username/g" '.github/FUNDING.yml'
+        sed -i '' -e "s/{ FUNDING_USERNAME }/$github_funding_username/g" '.github/FUNDING.yml'
     else
         printf 'Skipping funding setup and deleting .github/FUNDING.yml.'
         rm '.github/FUNDING.yml'
@@ -46,10 +46,10 @@ function setup_issue_templates {
             read -rp 'Who should bugs be assigned too? ' bug_handler
         fi
         printf 'Assigning bugs to %s' "$bug_handler"
-        sed -i '' -e "s/{ USERNAME }/$bug_handler/g" '.github/ISSUE_TEMPLATE/bug_report.md'
+        sed -i '' -e "s/{ BUG_USERNAME }/$bug_handler/g" '.github/ISSUE_TEMPLATE/bug_report.md'
     else
         printf 'Removing the assignment line from bug report template.'
-        sed -i '' -e 's/assignees: { USERNAME }//g' '.github/ISSUE_TEMPLATE/bug_report.md'
+        sed -i '' -e 's/assignees: { BUG_USERNAME }//g' '.github/ISSUE_TEMPLATE/bug_report.md'
     fi
 
     header 'Issue Report Templates'
@@ -62,10 +62,10 @@ function setup_issue_templates {
             read -rp 'Who should feature requests be assigned too? ' feature_handler
         fi
         printf 'Assigning feature requests to %s' "$feature_handler"
-        sed -i '' -e "s/{ USERNAME }/$feature_handler/g" '.github/ISSUE_TEMPLATE/feature_request.md'
+        sed -i '' -e "s/{ FEATURE_USERNAME }/$feature_handler/g" '.github/ISSUE_TEMPLATE/feature_request.md'
     else
         printf 'Removing the assignment line from bug report template.'
-        sed -i '' -e 's/assignees: { USERNAME }//g' '.github/ISSUE_TEMPLATE/feature_request.md'
+        sed -i '' -e 's/assignees: { FEATURE_USERNAME }//g' '.github/ISSUE_TEMPLATE/feature_request.md'
     fi
 }
 
