@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "This is my super project that does amazing things."
 readme = "README.md"
 license = { file = "LICENSE" }
-requires-python = ">={ PYTHON VERSION }"
+requires-python = ">={ PYTHON_MIN_VERSION }"
 dependencies = []
 
 [dependency-groups]

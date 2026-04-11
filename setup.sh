@@ -28,7 +28,7 @@ function funding_setup {
         if [ "$github_funding_y_n" = 'n' ]; then
             read -rp 'Enter the GitHub username to use for funding: ' github_funding_username
         fi
-        sed -i '' -e "s/{ USERNAME }/$github_funding_username/g" '.github/FUNDING.yml'
+        sed -i '' -e "s/{ FUNDING_USERNAME }/$github_funding_username/g" '.github/FUNDING.yml'
     else
         printf 'Skipping funding setup and deleting .github/FUNDING.yml.'
         rm '.github/FUNDING.yml'
@@ -46,10 +46,10 @@ function setup_issue_templates {
             read -rp 'Who should bugs be assigned too? ' bug_handler
         fi
         printf 'Assigning bugs to %s' "$bug_handler"
-        sed -i '' -e "s/{ USERNAME }/$bug_handler/g" '.github/ISSUE_TEMPLATE/bug_report.md'
+        sed -i '' -e "s/{ BUG_USERNAME }/$bug_handler/g" '.github/ISSUE_TEMPLATE/bug_report.md'
     else
         printf 'Removing the assignment line from bug report template.'
-        sed -i '' -e 's/assignees: { USERNAME }//g' '.github/ISSUE_TEMPLATE/bug_report.md'
+        sed -i '' -e 's/assignees: { BUG_USERNAME }//g' '.github/ISSUE_TEMPLATE/bug_report.md'
     fi
 
     header 'Issue Report Templates'
@@ -62,23 +62,21 @@ function setup_issue_templates {
             read -rp 'Who should feature requests be assigned too? ' feature_handler
         fi
         printf 'Assigning feature requests to %s' "$feature_handler"
-        sed -i '' -e "s/{ USERNAME }/$feature_handler/g" '.github/ISSUE_TEMPLATE/feature_request.md'
+        sed -i '' -e "s/{ FEATURE_USERNAME }/$feature_handler/g" '.github/ISSUE_TEMPLATE/feature_request.md'
     else
         printf 'Removing the assignment line from bug report template.'
-        sed -i '' -e 's/assignees: { USERNAME }//g' '.github/ISSUE_TEMPLATE/feature_request.md'
+        sed -i '' -e 's/assignees: { FEATURE_USERNAME }//g' '.github/ISSUE_TEMPLATE/feature_request.md'
     fi
 }
 
 function set_python_version {
     header 'Python Version'
     read -rp 'What is the minimum targeted python version? ' python_min
-    python_version_no_dot="${python_min//.}"
-    sed -i '' -e "s/{ PYTHON VERSION }/$python_min/g" '.github/workflows/publish.yml'
-    sed -i '' -e "s/{ PYTHON VERSION }/$python_min/g" '.github/workflows/uv.yml'
-    sed -i '' -e "s/{ PYTHON VERSION }/$python_min/g" '.python-version'
-    sed -i '' -e "s/{ PYTHON VERSION }/$python_min/g" 'pyproject.toml'
-    sed -i '' -e "s/{ PYTHON VERSION NO DOT }/$python_version_no_dot/g" 'pyproject.toml'
-    sed -i '' -e "s/{ PYTHON VERSION }/$python_min/g" 'sonar-project.properties'
+    sed -i '' -e "s/{ PYTHON_MIN_VERSION }/$python_min/g" '.github/workflows/publish.yml'
+    sed -i '' -e "s/{ PYTHON_MIN_VERSION }/$python_min/g" '.github/workflows/uv.yml'
+    sed -i '' -e "s/{ PYTHON_MIN_VERSION }/$python_min/g" '.python-version'
+    sed -i '' -e "s/{ PYTHON_MIN_VERSION }/$python_min/g" 'pyproject.toml'
+    sed -i '' -e "s/{ PYTHON_MIN_VERSION }/$python_min/g" 'sonar-project.properties'
 
     printf 'Updating the Python version across the project.'
 }
@@ -88,7 +86,7 @@ function setup_licence {
     header "LICENSE File."
     read -rp 'What name should the copyright be under? ' copyright_name
     sed -i '' -e "s/{ YEAR }/$current_year/g" 'LICENSE'
-    sed -i '' -e "s/{ YOUR NAME OR YOUR COMPANY NAME }/$copyright_name/g" 'LICENSE'
+    sed -i '' -e "s/{ COMPANY_NAME }/$copyright_name/g" 'LICENSE'
     printf 'Updated LICENSE file with your name and current year.'
 }
 
@@ -104,14 +102,14 @@ function setup_sonar {
         sonar_server_url_safe="${sonar_server_url_safe//./\.}"
 
         printf 'Updating .sonarlint/connectedMode.json with the url and key provided.'
-        sed -i '' -e "s/{ SONARQUBE URL }/${sonar_server_url_safe}/g" '.sonarlint/connectedMode.json'
-        sed -i '' -e "s/{ SONARQUBE PROJECT KEY }/$sonar_project_key/g" '.sonarlint/connectedMode.json'
+        sed -i '' -e "s/{ SONARQUBE_URL }/${sonar_server_url_safe}/g" '.sonarlint/connectedMode.json'
+        sed -i '' -e "s/{ SONARQUBE_PROJECT_KEY }/$sonar_project_key/g" '.sonarlint/connectedMode.json'
 
         printf '\r\n'
 
         printf 'Updating sonar-project.properties with the key and source directory provided.'
-        sed -i '' -e "s/{ SONARQUBE PROJECT KEY }/$sonar_project_key/g" 'sonar-project.properties'
-        sed -i '' -e "s/{ PROJECT SOURCE }/src/g" 'sonar-project.properties'
+        sed -i '' -e "s/{ SONARQUBE_PROJECT_KEY }/$sonar_project_key/g" 'sonar-project.properties'
+        sed -i '' -e "s/{ PROJECT_SOURCE }/src/g" 'sonar-project.properties'
     else
         printf 'Removing Sonar related files.'
         rm 'sonar-project.properties'
