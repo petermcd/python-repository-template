@@ -72,13 +72,11 @@ function setup_issue_templates {
 function set_python_version {
     header 'Python Version'
     read -rp 'What is the minimum targeted python version? ' python_min
-    python_version_no_dot="${python_min//.}"
-    sed -i '' -e "s/{ PYTHON VERSION }/$python_min/g" '.github/workflows/publish.yml'
-    sed -i '' -e "s/{ PYTHON VERSION }/$python_min/g" '.github/workflows/uv.yml'
-    sed -i '' -e "s/{ PYTHON VERSION }/$python_min/g" '.python-version'
-    sed -i '' -e "s/{ PYTHON VERSION }/$python_min/g" 'pyproject.toml'
-    sed -i '' -e "s/{ PYTHON VERSION NO DOT }/$python_version_no_dot/g" 'pyproject.toml'
-    sed -i '' -e "s/{ PYTHON VERSION }/$python_min/g" 'sonar-project.properties'
+    sed -i '' -e "s/{ PYTHON_MIN_VERSION }/$python_min/g" '.github/workflows/publish.yml'
+    sed -i '' -e "s/{ PYTHON_MIN_VERSION }/$python_min/g" '.github/workflows/uv.yml'
+    sed -i '' -e "s/{ PYTHON_MIN_VERSION }/$python_min/g" '.python-version'
+    sed -i '' -e "s/{ PYTHON_MIN_VERSION }/$python_min/g" 'pyproject.toml'
+    sed -i '' -e "s/{ PYTHON_MIN_VERSION }/$python_min/g" 'sonar-project.properties'
 
     printf 'Updating the Python version across the project.'
 }
@@ -88,7 +86,7 @@ function setup_licence {
     header "LICENSE File."
     read -rp 'What name should the copyright be under? ' copyright_name
     sed -i '' -e "s/{ YEAR }/$current_year/g" 'LICENSE'
-    sed -i '' -e "s/{ YOUR NAME OR YOUR COMPANY NAME }/$copyright_name/g" 'LICENSE'
+    sed -i '' -e "s/{ COMPANY_NAME }/$copyright_name/g" 'LICENSE'
     printf 'Updated LICENSE file with your name and current year.'
 }
 
@@ -104,14 +102,14 @@ function setup_sonar {
         sonar_server_url_safe="${sonar_server_url_safe//./\.}"
 
         printf 'Updating .sonarlint/connectedMode.json with the url and key provided.'
-        sed -i '' -e "s/{ SONARQUBE URL }/${sonar_server_url_safe}/g" '.sonarlint/connectedMode.json'
-        sed -i '' -e "s/{ SONARQUBE PROJECT KEY }/$sonar_project_key/g" '.sonarlint/connectedMode.json'
+        sed -i '' -e "s/{ SONARQUBE_URL }/${sonar_server_url_safe}/g" '.sonarlint/connectedMode.json'
+        sed -i '' -e "s/{ SONARQUBE_PROJECT_KEY }/$sonar_project_key/g" '.sonarlint/connectedMode.json'
 
         printf '\r\n'
 
         printf 'Updating sonar-project.properties with the key and source directory provided.'
-        sed -i '' -e "s/{ SONARQUBE PROJECT KEY }/$sonar_project_key/g" 'sonar-project.properties'
-        sed -i '' -e "s/{ PROJECT SOURCE }/src/g" 'sonar-project.properties'
+        sed -i '' -e "s/{ SONARQUBE_PROJECT_KEY }/$sonar_project_key/g" 'sonar-project.properties'
+        sed -i '' -e "s/{ PROJECT_SOURCE }/src/g" 'sonar-project.properties'
     else
         printf 'Removing Sonar related files.'
         rm 'sonar-project.properties'
