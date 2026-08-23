@@ -1,8 +1,11 @@
 """Tests for main.py"""
+
 from src.main import main
 
-class TestMain(object):
+
+class TestMain:
     """Tests for main.py"""
+
     def test_main(self, capsys):
         """Test the main function"""
         main()

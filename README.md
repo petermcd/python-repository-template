@@ -18,7 +18,7 @@ Things you should do:
 
 This template assumes that you will be using uv for project management and GitHub workflows.
 
-##
+##ToDo
 
 The following are a few things that I plan to do to extend this template:
 
